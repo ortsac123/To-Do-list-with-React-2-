@@ -15,17 +15,32 @@ const todos =[
 function App() {
 
 
-  const itemStorage = localStorage.getItem('ToDo_V1');
-  let auxStorage = [];
+  const useItems = (newItems, todoInicial)=>{
+
+  const itemStorage = localStorage.getItem(newItems);
+  let auxStorage = todoInicial;
 
   if (!itemStorage){
-    localStorage.setItem('ToDo_V1', JSON.stringify(auxStorage));
-    auxStorage = [];
+    localStorage.setItem(newItems, JSON.stringify(todoInicial));
+    auxStorage = todoInicial;
   } else{
     auxStorage = JSON.parse(itemStorage);  
   }
+
+  const [items, setItem] = React.useState(auxStorage);
+
+  const saveTodos = (actTodos)=> {
+    localStorage.setItem(newItems, JSON.stringify(actTodos))
+    setItem(actTodos);
+  }
   
-  const [todoss, setTodos] = React.useState(auxStorage);
+  return [
+    items,
+    saveTodos
+  ]
+}
+  
+  const [todoss, saveTodos] = useItems('ToDo_V1', []);
   const [stateSearch, setStateSearch] = React.useState("");
   const completados  = todoss.filter(todo => !!todo.completed).length;
   const totalTodos =  todoss.length;
@@ -41,10 +56,6 @@ function App() {
       return todoText.includes(searText);
     })
   }
-    const saveTodos = (actTodos)=> {
-      localStorage.setItem('ToDo_V1', JSON.stringify(actTodos))
-      setTodos(actTodos);
-    }
 
     const completeTodos = (text) => {
       const auxText = todoss.findIndex((todo) => todo.text === text );
