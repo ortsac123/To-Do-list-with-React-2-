@@ -26,7 +26,7 @@ function useItems (newItems, todoInicial) {
         setError(error);
       }
 
-      }, 2000);
+      }, 1500);
 
     });
 

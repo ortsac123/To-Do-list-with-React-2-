@@ -6,20 +6,19 @@ import TodoSearch from "../TodoSearch";
 import CreateTodoButton from "../CreateTodoButton";
 import { TodoContext } from "../TodoContext";
 
-function AppPrincipal({}) {
+function AppPrincipal() {
+
+const {loading,
+       error,
+       filTodos,
+       completeTodos,
+       eliminarTodos } = React.useContext(TodoContext);
+
   return (
     <React.Fragment>
       <TodoCounter />
+
       <TodoSearch />
-
-      <TodoContext.Consumer>
-        {({
-        error,
-        loading,      
-        filTodos,
-        completeTodos,
-        eliminarTodos}) => (
-
           <TodoList>
             {loading && <p>Procesando por favor espere</p>}
             {error && <p>Hubo un error</p>}
@@ -37,8 +36,6 @@ function AppPrincipal({}) {
               />
             ))}
           </TodoList>
-        )}
-      </TodoContext.Consumer>
 
       <CreateTodoButton />
     </React.Fragment>
