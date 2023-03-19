@@ -1,11 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import useItems from "./useItems";
 
 const TodoContext = React.createContext();
 
 function TodoProvider(props) {
-
-<useItems></useItems>
 
   const {
     items: todoss,
@@ -14,6 +12,7 @@ function TodoProvider(props) {
     error,
   } = useItems("ToDo_V1", []);
   const [stateSearch, setStateSearch] = React.useState("");
+  const [openModal, setOpenModal] = useState(false)
   const completados = todoss.filter((todo) => !!todo.completed).length;
   const totalTodos = todoss.length;
 
@@ -36,6 +35,15 @@ function TodoProvider(props) {
     saveTodos(newTodos);
   };
 
+  const addTodos = (text) => {
+    const newTodos = [...todoss];
+    newTodos.push({
+      completed:false,
+      text
+    });
+    saveTodos(newTodos);
+  };
+
   const eliminarTodos = (text) => {
     const auxText = todoss.findIndex((todo) => todo.text === text);
     const newTodos = [...todoss];
@@ -51,8 +59,12 @@ function TodoProvider(props) {
         stateSearch,
         setStateSearch,
         filTodos,
+        addTodos,
         completeTodos,
-        eliminarTodos
+        eliminarTodos,
+        openModal, 
+        setOpenModal,
+        
     }}>{props.children}</TodoContext.Provider>
   );
 }
