@@ -1,0 +1,8 @@
+.container {
+    font-family:'Shantell Sans', cursive;
+    font-size: 46px;
+    display: flex;
+    justify-content: center;
+    min-height: 400px;
+    align-items: center;
+}

@@ -7,6 +7,7 @@ import CreateTodoButton from "../CreateTodoButton";
 import { TodoContext } from "../TodoContext";
 import Modal from "../Modal";
 import TodoForm from "../TodoFort";
+import PrimerTarae from "../PrimerTarea";
 
 
 function AppPrincipal() {
@@ -26,11 +27,15 @@ const { loading,
 
       <TodoSearch />
           <TodoList>
+            <div>
+
             {loading && <p>Procesando por favor espere</p>}
             {error && <p>Hubo un error</p>}
             {!loading && !filTodos.length && (
-              <p>---Ingresa tu primer tarea---</p>
+              <PrimerTarae></PrimerTarae>
             )}
+
+            </div>
 
             {filTodos.map((todo) => (
               <TodoItem
